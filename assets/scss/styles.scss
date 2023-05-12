@@ -1,0 +1,125 @@
+/*=============== VARIABLES CSS ===============*/
+:root{
+    /*========== Colors ==========*/
+    /*Color mode HSL(hue, saturation, lightness)*/
+    --first-color: hsl(234, 62%, 56%);
+    --icon-color: hsl(234, 12%, 24%);
+    --body-color: hsl(234, 48%, 97%);
+    --container-color: hsl(234, 100%, 99%);
+}
+
+/*=============== BASE ===============*/
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+a{
+    text-decoration: none;
+}
+
+/*=============== BUTTON ===============*/
+.floating{
+    height: 100vh;
+    display: grid;
+    place-items: center;
+    background-color: var(--body-color);
+
+    &__container{
+        position: relative;
+    }
+
+    &__toggle,
+    &__icon{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        background-color: var(--container-color);
+    }
+    &__toggle{
+        width: 70px;
+        height: 70px;
+        font-size: 2rem;
+        color: var(--first-color);
+        box-shadow: -6px -6px 24px hsl(234, 48%, 98%),
+                    6px 6px 24px hsl(234, 48%, 88%),
+                    inset 6px 6px 24px hsl(234, 48%, 98%),
+                    inset -6px -6px 24px hsl(234, 48%, 88%);
+        position: relative;
+        z-index: 10;
+        cursor: pointer;
+        transition: box-shadow .3s ease-in-out, transform .3s;
+
+        & i{
+            transition: transform .8s ease-in-out;
+        }
+
+        &:hover{
+            box-shadow: 6px 6px 24px hsl(234, 48%, 98%), 
+                        -6px -6px 24px hsl(234, 48%, 88%), 
+                        inset -6px -6px 24px hsl(234, 48%, 98%), 
+                        inset 6px 6px 24px hsl(234, 48%, 88%);
+            transform: scale(.95);
+        }
+    }
+    &__icon,
+    &__link{
+        width: 40px;
+        height: 40px;
+    }
+    &__icon{
+        font-size: 1rem;
+        color: var(--icon-color);
+        box-shadow: -4px -4px 16px hsl(234, 48%, 98%),
+                    4px 4px 16px hsl(234, 48%, 90%),
+                    inset 4px 4px 16px hsl(234, 48%, 98%),
+                    inset -4px -4px 16px hsl(234, 48%, 90%);
+        transition: box-shadow .3s ease-in-out;
+
+        &:hover{
+            box-shadow: 4px 4px 16px hsl(234, 48%, 98%), 
+                        -4px -4px 16px hsl(234, 48%, 90%), 
+                        inset -4px -4px 16px hsl(234, 48%, 98%), 
+                        inset 4px 4px 16px hsl(234, 48%, 90%);
+        }
+    }
+    &__link{
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        opacity: 0;
+        transition: transform .8s ease-in-out, opacity .6s;
+        z-index: 1;
+
+        &:nth-child(1){
+           transition-delay: .1s;
+        }
+        &:nth-child(2){
+            transition-delay: .2s;
+        }
+        &:nth-child(3){
+            transition-delay: .3s;
+        }
+    }
+}
+
+/* Rotate toggle */
+.active.floating__toggle i{
+    transform: rotate(135deg);
+}
+
+/* Move icons */
+.active ~ ul .floating__link{
+    opacity: 1;
+}
+.active ~ ul .floating__link:nth-child(1){
+    transform: translate(3.5rem, -3.5rem);
+}
+.active ~ ul .floating__link:nth-child(2){
+    transform: translate(5.5rem);
+}
+.active ~ ul .floating__link:nth-child(3){
+    transform: translate(3.5rem, 3.5rem);
+}
